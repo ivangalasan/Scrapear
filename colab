@@ -1,0 +1,29 @@
+import requests
+from bs4 import BeautifulSoup
+
+urls = ["https://www.chovi.com/", "https://www.chovi.com/", "https://www.chovi.com/", "https://www.chovi.com/", "https://www.chovi.com/"]
+
+# Crear un archivo de texto para guardar la información extraída
+with open("output.txt", "w") as f:
+    for url in urls:
+        # Utilizar la biblioteca requests para obtener el código HTML de la página
+        response = requests.get(url)
+        html = response.text
+
+        # Utilizar BeautifulSoup para analizar el código HTML
+        soup = BeautifulSoup(html, "html.parser")
+
+        # Extraer el título de la página
+        title = soup.find("title").text
+
+        # Extraer la descripción meta
+        metadescription = soup.find("meta", attrs={"name": "description"})["content"]
+
+        # Extraer los encabezados h1-h6
+        headers = {"h1": [], "h2": [], "h3": [], "h4": [], "h5": [], "h6": []}
+        for header_type in headers.keys():
+            headers[header_type] = [header.text for header in soup.find_all(header_type)]
+
+
+        # Escribir la información en el archivo de texto
+        f.write(f"{url};{title};{metadescription};{headers['h1']};{headers['h2']};{headers['h3']};{headers['h4']};{headers['h5']};{headers['h6']}")
