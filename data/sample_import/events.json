@@ -1,0 +1,23 @@
+[
+  {
+    "id": "EV-L-010",
+    "tipo": "Local",
+    "dia_activacion": 1,
+    "ubicacion": ["Eriador"],
+    "descripcion": "Los montaraces informan de huargos merodeando la Ruta Norte.",
+    "efecto": "Amenaza creciente en Eriador",
+    "cartas_LCG": ["Howling Wolf Pack"],
+    "tags": ["Eriador", "huargos"]
+  },
+  {
+    "id": "EV-G-020",
+    "tipo": "Global",
+    "dia_activacion": 3,
+    "ubicacion": ["Rohan", "Gondor"],
+    "descripcion": "Mensajeros negros cruzan las fronteras del Oeste.",
+    "efecto": "Incrementa la sombra en las tierras libres",
+    "consecuencia_si_ignorado": "EV-G-021",
+    "cartas_LCG": ["Winged Courier"],
+    "tags": ["sombra", "mensajeros"]
+  }
+]
