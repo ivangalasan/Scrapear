@@ -1,0 +1,78 @@
+{
+  "current_day": 5,
+  "regions": {
+    "Bosque Negro": {
+      "nombre": "Bosque Negro",
+      "estado": "Amenazada",
+      "eventos_activos": ["EV-L-003"],
+      "misiones_activas": ["MIS-002"],
+      "historial": [
+        "Día 3 - Se activó EV-L-003",
+        "Día 5 - Región marcada como Corrompida"
+      ]
+    },
+    "Gondor": {
+      "nombre": "Gondor",
+      "estado": "Aliada",
+      "eventos_activos": [],
+      "misiones_activas": [],
+      "historial": [
+        "Día 2 - Refuerzos enviados a Osgiliath"
+      ]
+    }
+  },
+  "events": {
+    "EV-G-002": {
+      "id": "EV-G-002",
+      "tipo": "Global",
+      "dia_activacion": 5,
+      "ubicacion": ["Gondor", "Mordor"],
+      "descripcion": "El fuego de Orodruin se reaviva, extendiendo su sombra sobre las Tierras Oscuras.",
+      "efecto": "Corrompe Mordor y aumenta amenaza global",
+      "consecuencia_si_ignorado": "EV-G-003",
+      "recompensa_si_resuelto": "Aliado: Vigía del Oeste",
+      "cartas_LCG": ["Orodruin's Wrath", "Ash Mountains", "Servant of Sauron"],
+      "tags": ["Mordor", "fuego", "corrupción"],
+      "estado": "Activo",
+      "historial": [
+        "Día 5 - Evento activado"
+      ]
+    }
+  },
+  "missions": {
+    "MIS-002": {
+      "id": "MIS-002",
+      "nombre": "Las arañas de Dol Guldur",
+      "region": "Bosque Negro",
+      "estado": "En progreso",
+      "objetivos": [
+        "Eliminar al líder arácnido",
+        "Salvar a los prisioneros élficos"
+      ],
+      "cartas_LCG_usadas": ["Forest Spider", "Web of Fear", "Gloomy Grove"],
+      "recompensas": ["Aliado: Explorador élfico", "Objeto: Red de los Antiguos"],
+      "desencadenada_por": "EV-L-004"
+    }
+  },
+  "heroes": {
+    "Beregond": {
+      "nombre": "Beregond",
+      "clase": "Capitán de Gondor",
+      "cartas_vinculadas": ["Shield of Gondor", "Horn of the West Wind"],
+      "aliados": ["Faramir", "Guardia de la Ciudadela"],
+      "estado": "Herido",
+      "historial": [
+        "Día 2 - Completó misión 'El Puente del Anduin'",
+        "Día 4 - Rechazó la ayuda de Saruman"
+      ]
+    }
+  },
+  "log": [
+    {
+      "dia": 5,
+      "titulo": "Avance del día",
+      "descripcion": "Se activaron: EV-G-002",
+      "tags": ["tiempo"]
+    }
+  ]
+}

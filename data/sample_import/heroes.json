@@ -1,0 +1,10 @@
+[
+  {
+    "nombre": "Aragorn",
+    "clase": "Montaraz del Norte",
+    "cartas_vinculadas": ["Andúril", "The Ring of Barahir"],
+    "aliados": ["Halbarad", "Elladan", "Elrohir"],
+    "estado": "Sano",
+    "historial": []
+  }
+]
