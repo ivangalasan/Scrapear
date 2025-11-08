@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ hero.nombre }} · Crónicas de la Tierra Media</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f1e8;
+        color: #2d2213;
+        margin: 0;
+      }
+      header {
+        background: #3e2f1c;
+        color: #f0e6d2;
+        padding: 1.5rem 2rem;
+      }
+      main {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+      a {
+        color: #7a5525;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{ hero.nombre }}</h1>
+      <p>{{ hero.clase }} · Estado: <strong>{{ hero.estado }}</strong></p>
+      <p><a href="{{ url_for('index') }}">Volver al resumen</a></p>
+    </header>
+    <main>
+      <section>
+        <h2>Cartas vinculadas</h2>
+        <ul>
+          {% for card in hero.cartas_vinculadas %}
+            <li>{{ card }}</li>
+          {% else %}
+            <li>No hay cartas registradas.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Aliados</h2>
+        <ul>
+          {% for aliado in hero.aliados %}
+            <li>{{ aliado }}</li>
+          {% else %}
+            <li>No hay aliados registrados.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Historial</h2>
+        <ul>
+          {% for entry in hero.historial|reverse %}
+            <li>{{ entry }}</li>
+          {% else %}
+            <li>Aún no hay registros para este héroe.</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

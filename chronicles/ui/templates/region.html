@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ region.nombre }} · Crónicas de la Tierra Media</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f1e8;
+        color: #2d2213;
+        margin: 0;
+      }
+      header {
+        background: #3e2f1c;
+        color: #f0e6d2;
+        padding: 1.5rem 2rem;
+      }
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      }
+      a {
+        color: #7a5525;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{ region.nombre }}</h1>
+      <p>Estado actual: <strong>{{ region.estado }}</strong></p>
+      <p><a href="{{ url_for('index') }}">Volver al resumen</a></p>
+    </header>
+    <main>
+      <section>
+        <h2>Eventos activos</h2>
+        <ul>
+          {% for event_id in region.eventos_activos %}
+            <li>{{ event_id }}</li>
+          {% else %}
+            <li>No hay eventos activos.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Misiones en la región</h2>
+        <ul>
+          {% for mission_id in region.misiones_activas %}
+            {% set mission = state.missions.get(mission_id) %}
+            <li>
+              {% if mission %}
+                <strong>{{ mission.nombre }}</strong> ({{ mission.estado }})
+              {% else %}
+                {{ mission_id }}
+              {% endif %}
+            </li>
+          {% else %}
+            <li>No hay misiones activas.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Historial</h2>
+        <ul>
+          {% for entry in region.historial|reverse %}
+            <li>{{ entry }}</li>
+          {% else %}
+            <li>No hay entradas registradas.</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

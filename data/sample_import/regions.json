@@ -1,0 +1,16 @@
+[
+  {
+    "nombre": "Eriador",
+    "estado": "Estabilizada",
+    "eventos_activos": [],
+    "misiones_activas": [],
+    "historial": []
+  },
+  {
+    "nombre": "Rohan",
+    "estado": "Amenazada",
+    "eventos_activos": [],
+    "misiones_activas": [],
+    "historial": []
+  }
+]

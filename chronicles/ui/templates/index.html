@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Crónicas de la Tierra Media</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background: #f5f1e8;
+        color: #2d2213;
+      }
+      header {
+        background: #3e2f1c;
+        color: #f0e6d2;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      main {
+        padding: 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      section {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        padding: 1.5rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+        margin-top: 0;
+      }
+      ul {
+        padding-left: 1.2rem;
+      }
+      .btn-primary {
+        background: #96713d;
+        border: none;
+        border-radius: 999px;
+        color: #f8f1e1;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .btn-primary:hover {
+        background: #b38747;
+      }
+      .message {
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
+        background: rgba(150, 113, 61, 0.15);
+        border-left: 4px solid #96713d;
+        border-radius: 8px;
+      }
+      .pill {
+        display: inline-block;
+        background: rgba(62, 47, 28, 0.1);
+        border-radius: 999px;
+        padding: 0.25rem 0.75rem;
+        margin: 0.25rem 0.25rem 0 0;
+        font-size: 0.85rem;
+      }
+      a {
+        color: #7a5525;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .log {
+        max-height: 240px;
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Crónicas de la Tierra Media</h1>
+        <p>Día actual: <strong>{{ state.current_day }}</strong></p>
+      </div>
+      <form method="post" action="{{ url_for('advance_day') }}">
+        <button class="btn-primary" type="submit">Pasar al siguiente día</button>
+      </form>
+    </header>
+
+    {% if message %}
+      <div class="message" role="status">
+        {{ message }}
+      </div>
+    {% endif %}
+
+    <main>
+      <section>
+        <h2>Resumen de la campaña</h2>
+        <p><strong>{{ state.regions|length }}</strong> regiones registradas</p>
+        <p><strong>{{ state.events|length }}</strong> eventos disponibles</p>
+        <p><strong>{{ state.missions|length }}</strong> misiones activas</p>
+        <p><strong>{{ state.heroes|length }}</strong> héroes en la compañía</p>
+      </section>
+
+      <section>
+        <h2>Regiones</h2>
+        <ul>
+          {% for region in state.regions.values()|list|sort(attribute='nombre') %}
+            <li>
+              <a href="{{ url_for('region_detail', region_name=region.nombre) }}">{{ region.nombre }}</a>
+              — <em>{{ region.estado }}</em>
+            </li>
+          {% else %}
+            <li>No hay regiones registradas todavía.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Eventos programados</h2>
+        <ul>
+          {% for event in state.events.values()|list|sort(attribute='dia_activacion') %}
+            <li>
+              <strong>{{ event.id }}</strong> · Día {{ event.dia_activacion }} · {{ event.estado }}
+            </li>
+          {% else %}
+            <li>No hay eventos programados.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Misiones</h2>
+        <ul>
+          {% for mission in state.missions.values()|list|sort(attribute='nombre') %}
+            <li>
+              <strong>{{ mission.nombre }}</strong> ({{ mission.estado }}) · {{ mission.region }}
+            </li>
+          {% else %}
+            <li>No hay misiones registradas.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Héroes</h2>
+        <ul>
+          {% for hero in state.heroes.values()|list|sort(attribute='nombre') %}
+            <li>
+              <a href="{{ url_for('hero_detail', hero_name=hero.nombre) }}">{{ hero.nombre }}</a>
+              — {{ hero.clase }} · {{ hero.estado }}
+            </li>
+          {% else %}
+            <li>Aún no hay héroes registrados.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Registro de la campaña</h2>
+        <div class="log">
+          <ul>
+            {% for entry in state.log|reverse %}
+              <li>
+                <strong>Día {{ entry.dia }}</strong> · {{ entry.titulo }}<br />
+                {{ entry.descripcion }}
+                <div>
+                  {% for tag in entry.tags %}
+                    <span class="pill">{{ tag }}</span>
+                  {% endfor %}
+                </div>
+              </li>
+            {% else %}
+              <li>No hay entradas en el registro todavía.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
